@@ -1,11 +1,16 @@
 package org.aninha.apirestjava.api;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping("/users")
@@ -37,7 +42,7 @@ public class UserRestController {
     }
 
     @PostMapping("/")
-    public User createUser(@RequestBody User user){
+    public User createUser(@RequestBody @Valid User user){
         this.usersList.add(user);
         return user;
     }
@@ -49,7 +54,7 @@ public class UserRestController {
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable UUID id, @RequestBody User newUser){
+    public User updateUser(@PathVariable UUID id, @RequestBody @Valid User newUser){
         User user = this.getForUuid(String.valueOf(id));
         this.usersList.set(this.usersList.indexOf(user), newUser);
         return newUser;

@@ -1,16 +1,13 @@
 package org.aninha.apirestjava.api;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.aninha.apirestjava.api.exception.NotFoundException;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -38,7 +35,7 @@ public class UserRestController {
     public User getForUuid(@PathVariable String uuid){
         return usersList.stream().filter
                 (user -> user.getUuid().equals(uuid)).
-                findFirst().orElse(null);
+                findFirst().orElseThrow( () -> new NotFoundException("Nao foi possivel encontrar o Usuario"));
     }
 
     @PostMapping("/")

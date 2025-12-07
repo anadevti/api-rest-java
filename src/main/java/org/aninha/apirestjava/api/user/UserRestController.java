@@ -15,7 +15,6 @@ import java.util.UUID;
 @RequestMapping("/users")
 public class UserRestController {
 
-    private final List<User> usersList = new ArrayList<>();
     private final UserJpaRepository jpaRepository;
 
     public UserRestController(UserJpaRepository jpaRepository) {
@@ -63,13 +62,12 @@ public class UserRestController {
 
     }
 
-//    @PatchMapping("/{uuid}/update-name")
-//    public User patchNamer(@PathVariable UUID uuid, @RequestBody User newUser){
-//        User user = this.getForUuid(String.valueOf(uuid));
-//        user.setName(newUser.getName());
-//        user.setEmail(newUser.getEmail());
-//        return newUser;
-//    }
+    @Transactional
+    @PatchMapping("/{uuid}/update-name")
+    public User patchNamer(@PathVariable UUID uuid, @RequestBody User newUser){
+        this.jpaRepository.updateName(uuid, newUser.getName());
+        return this.jpaRepository.save(newUser);
+    }
 
     @Transactional
     @DeleteMapping("/{uuid}")

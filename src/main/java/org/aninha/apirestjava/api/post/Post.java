@@ -1,6 +1,9 @@
-package org.aninha.apirestjava.api;
+package org.aninha.apirestjava.api.post;
 
+import jakarta.persistence.*;
 import lombok.*;
+import org.aninha.apirestjava.api.user.User;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -9,13 +12,21 @@ import java.util.UUID;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 
 public class Post {
+
+    @Id
+    @GeneratedValue
+    private long id;
 
     private UUID uuid;
     private String title;
     private String body;
     private LocalDateTime createdDate;
-    private String author;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User author;
 
 }

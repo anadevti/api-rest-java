@@ -9,5 +9,4 @@ public abstract class AbstractException extends RuntimeException {
 
    public abstract HttpStatus getStatus();
 
-
 }

@@ -17,8 +17,8 @@ import java.util.UUID;
 public class Post {
 
     @Id
-    @GeneratedValue
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private UUID uuid;
     private String title;

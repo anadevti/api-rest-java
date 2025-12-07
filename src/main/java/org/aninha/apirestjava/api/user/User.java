@@ -1,9 +1,6 @@
 package org.aninha.apirestjava.api.user;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
@@ -14,23 +11,26 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@Entity
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Table(name = "users")
 
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     // o Jpa interpreta disso tudo pra baixo como sendo colunas no db.
     private UUID uuid;
+
     @NotBlank
     private String name;
+
     @Email
     private String email;
+
     @Past
     private LocalDate dob;
 

@@ -17,12 +17,13 @@ import java.util.UUID;
 public class Post {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private UUID uuid;
     private String title;
     private String body;
+    @Column(name = "createddate")
     private LocalDateTime createdDate;
 
     @ManyToOne
